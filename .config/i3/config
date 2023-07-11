@@ -1,0 +1,263 @@
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+#
+
+# Startup programs
+exec_always --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
+
+#exec_always --no-startup-id xrandr --output DP1-2-1 --auto --right-of eDP1
+#exec_always --no-startup-id xrandr --output DP1-2-2 --auto --right-of DP1-2-1
+
+exec_always --no-startup-id dunst 
+exec_always compton &;
+exec_always --no-startup-id clipit &; 512g
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id i3-msg 'exec "setxkbmap -option 'grp:ctrl_alt_toggle' -layout us,cz -variant ,qwerty";'
+exec_always feh --bg-scale ~/Pictures/Wallpapers/125254fc708bd9a722b4ef21ddf1ee88.jpg
+exec --no-startup-id i3-msg 'exec google-chrome'
+
+#Mods
+set $mod Mod4
+set $mod1 Mod1
+
+font pango:MesloLGS NF 11
+
+# external monitors
+bindsym $mod+Ctrl+1 exec xrandr --output HDMI1 --auto --right-of eDP1
+bindsym $mod+Ctrl+2 exec xrandr --output DP1-2-1 --auto --right-of eDP1 && xrandr --output DP1-2-2 --auto --right-of DP1-2-1
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal by pressing Mod + ENTER
+bindsym $mod+Return exec alacritty
+
+# Moving workspaces between screens 
+bindsym $mod+e move workspace to output right
+
+# Custom bindsyms
+bindsym $mod+c exec google-chrome
+bindsym $mod+g exec gedit 
+bindsym $mod+n exec nautilus --new-window
+
+# Enable Print Screen
+#bindsym --release $mod+Print exec gnome-sc4reenshot -i
+bindsym Print exec gnome-screenshot -i 
+bindsym $mod+Print exec gnome-screenshot
+
+# kill focused window
+bindsym $mod+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+Shift+d exec dmenu_run
+
+# change focus
+#bindsym $mod+Left focus left
+#bindsym $mod+Down focus down
+#bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
+
+# change focus
+bindsym $mod+a focus left
+bindsym $mod+s focus down
+bindsym $mod+w focus up
+bindsym $mod+d focus right
+
+# move focused window
+bindsym $mod+Left move left
+bindsym $mod+Down move down
+bindsym $mod+Up move up
+bindsym $mod+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+e layout toggle split
+
+# # toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# switch to workspace
+bindsym $mod+mod2+KP_1 workspace number $ws1
+bindsym $mod+mod2+KP_2 workspace number $ws2
+bindsym $mod+mod2+KP_3 workspace number $ws3
+bindsym $mod+mod2+KP_4 workspace number $ws4
+bindsym $mod+mod2+KP_5 workspace number $ws5
+bindsym $mod+mod2+KP_6 workspace number $ws6
+bindsym $mod+mod2+KP_7 workspace number $ws7
+bindsym $mod+mod2+KP_8 workspace number $ws8
+bindsym $mod+mod2+KP_9 workspace number $ws9
+bindsym $mod+mod2+KP_0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+
+# resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+# PulseAudio key bindings (need USE flag "pulseaudio", will pull in media-sound/pulseaudio automatically.)
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- unmute
+bindsym XF86AudioMute exec amixer -D pulse sset Master toggle
+
+
+# Media player key bindings (need media-sound/playerctl for playerctl.)
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86Display exec brightness -r
+
+bindsym XF86MonBrightnessUp exec brightness -i 0.1
+bindsym XF86MonBrightnessDown exec brightness -i -0.1
+
+bindsym $mod+F6 exec brightness -i 0.1 -D 0
+bindsym $mod+F5 exec brightness -i -0.1 -D 0
+bindsym $mod+XF86MonBrightnessUp exec brightness -i 0.1 -D 0
+bindsym $mod+XF86MonBrightnessDown exec brightness -i -0.1 -D 0
+
+bindsym Ctrl+F6 exec brightness -i 0.1 -D 1
+bindsym Ctrl+F5 exec brightness -i -0.1 -D 1
+bindsym Ctrl+XF86MonBrightnessUp exec brightness -i 0.1 -D 1
+bindsym Ctrl+XF86MonBrightnessDown exec brightness -i -0.1 -D 1
+
+bindsym Shift+F6 exec brightness -i 0.1 -D 2
+bindsym Shift+F5 exec brightness -i -0.1 -D 2
+bindsym Shift+XF86MonBrightnessUp exec brightness -i 0.1 -D 2
+bindsym Shift+XF86MonBrightnessDown exec brightness -i -0.1 -D 2
+
+bindsym Ctrl+Shift+F6 exec "brightness -i 0.1 -D 1,2"
+bindsym Ctrl+Shift+F5 exec "brightness -i -0.1 -D 1,2"
+bindsym Ctrl+Shift+XF86MonBrightnessUp exec "brightness -i 0.1 -D 1,2"
+bindsym Ctrl+Shift+XF86MonBrightnessDown exec "brightness -i -0.1 -D 1,2"
+
+
+# redshift modes
+bindsym $mod+l exec brightness 
+
+bar {
+    font pango:MesloLGS NF 11
+
+    status_command ~/.config/bumblebee-status/bumblebee-status \
+    -t solarized-powerline \
+    -m layout-xkb pomodoro brightness pasink memory datetime battery
+
+    colors {
+        separator #081419
+        background #253941
+        statusline #839496
+        focused_workspace #fdf6e3 #6c71c4 #fdf6e3
+        active_workspace #fdf6e3 #6c71c4 #fdf6e3
+        inactive_workspace #002b36 #586e75 #002b36
+        urgent_workspace #d33682 #d33682 #fdf6e3
+
+        statusline         $white
+        separator          $transparent
+  }
+}
+
+set $m1 #808080 
+set $m2 #FFF0E0
+
+# Bind App to workspace
+# Check class by using xprop command
+# assign [class="google-chrome"] 2
+assign [class="^Google-chrome$"] $ws2
+assign [class="^Code$"] $ws3
+
+workspace $ws3 output HDMI1
+workspace $ws2 output HDMI1
+workspace $ws1 output eDP1 
+
+# Floating windows
+for_window [window_role="Open Files"] floating enable sticky
+
+# Shutdown, Reboot, Lock Screen, and Logout 
+
+set $power_mode "power"
+bindsym $mod+Shift+q mode $power_mode
+mode $power_mode {
+    bindsym p         exec systemctl poweroff
+    bindsym r         exec systemctl reboot 
+    bindsym l         exec ig-msg exit
+    bindsym q         exec --no-startup-id i3-msg exit, mode "default"
+    bindsym h         exec sudo systemctl hibernate 
+    bindsym s         exec sudo systemctl suspend
+    bindsym Return    mode "default"
+    bindsym Escape    mode "default"
+}
+
+# Sticky window
+for_window [instance="file_progress"]  sticky enable
+for_window [class="info|Mate-color-select|gcolor2|timesup|QtPass|GtkFileChooserDialog"] sticky enable
+
+# Focus window settings
+no_focus [window_role="pop-up"]
+focus_on_window_activation focus
