@@ -1,5 +1,8 @@
 {
   "workbench.colorTheme": "Default Dark+",
+  "workbench.startupEditor": "none",
+
+  // python
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true,
@@ -14,6 +17,8 @@
   "python.formatting.provider": "black",
   "python.linting.enabled": true,
   "isort.args": ["--profile", "black"],
+
+  // dart
   "[dart]": {
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
@@ -25,17 +30,19 @@
     "editor.wordBasedSuggestions": false
   },
   "dart.lineLength": 140,
+  "dart.showInspectorNotificationsForWidgetErrors": false,
+
+  // env formatting
   "prettier.printWidth": 140,
   "editor.tabSize": 4,
   "editor.renderWhitespace": "all",
   "editor.hideCursorInOverviewRuler": true,
-  "git.autofetch": true,
   "editor.wordWrapColumn": 140,
-  "dart.showInspectorNotificationsForWidgetErrors": false,
-  "cmake.configureOnOpen": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.autoSave": "onWindowChange",
-  "terminal.integrated.shellIntegration.enabled": false,
-  "workbench.startupEditor": "none",
+
+  // vim
   "vim.otherModesKeyBindingsNonRecursive": [
     {
       "before": ["="],
@@ -51,6 +58,8 @@
   "vim.handleKeys": {
     "<C-w>": false
   },
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+
+  "git.autofetch": true,
+  "cmake.configureOnOpen": false,
+  "terminal.integrated.shellIntegration.enabled": false
 }
