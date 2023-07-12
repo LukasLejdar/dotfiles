@@ -26,21 +26,21 @@
     "when": "editorTextFocus && !editorReadOnly"
   },
   {
-    "key": "shift+alt+tab",
+    "key": "shift+ctrl+tab",
     "command": "workbench.action.quickOpenLeastRecentlyUsedEditorInGroup",
     "when": "!activeEditorGroupEmpty"
   },
   {
-    "key": "alt+tab",
+    "key": "ctrl+tab",
     "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
     "when": "!activeEditorGroupEmpty"
   },
   {
-    "key": "ctrl+tab",
+    "key": "alt+tab",
     "command": "workbench.action.nextEditor"
   },
   {
-    "key": "ctrl+shift+tab",
+    "key": "alt+shift+tab",
     "command": "workbench.action.previousEditor"
   },
   {

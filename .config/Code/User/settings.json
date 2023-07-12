@@ -15,7 +15,19 @@
   },
   "python.formatting.blackArgs": ["--skip-string-normalization", "--line-length", "140"],
   "python.formatting.provider": "black",
-  "python.linting.enabled": true,
+  "python.analysis.typeCheckingMode": "off",
+  "python.linting.enabled": false,
+  "python.condaPath": "/home/lukas/miniconda3/condabin/conda",
+  "python.defaultInterpreterPath": "/home/lukas/miniconda3/envs/tf/bin/python3",
+  "python.pythonPath": "/home/lukas/miniconda3/envs/tf/bin/python3",
+  "python.languageServer": "Pylance",
+  "python.analysis.extraPaths": ["venv"],
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportOptionalMemberAccess": "information",
+    "reportGeneralTypeIssues": "error"
+  },
+
   "isort.args": ["--profile", "black"],
 
   // dart
@@ -33,7 +45,7 @@
   "dart.showInspectorNotificationsForWidgetErrors": false,
 
   // env formatting
-  "prettier.printWidth": 140,
+  "prettier.printWidth": 200,
   "editor.tabSize": 4,
   "editor.renderWhitespace": "all",
   "editor.hideCursorInOverviewRuler": true,
@@ -56,10 +68,14 @@
     }
   ],
   "vim.handleKeys": {
-    "<C-w>": false
+    "<C-w>": false,
+    "<C-a>": false
   },
 
   "git.autofetch": true,
   "cmake.configureOnOpen": false,
-  "terminal.integrated.shellIntegration.enabled": false
+  "terminal.integrated.shellIntegration.enabled": false,
+  "editor.lineNumbers": "relative",
+  "terminal.integrated.inheritEnv": false,
+  "python.analysis.autoImportCompletions": true
 }
