@@ -1,9 +1,4 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -11,7 +6,6 @@ export TEXMFHOME=~/texmf
 
 alias tlmgr=/usr/local/texlive/2023/bin/x86_64-linux/tlmgr --usermode
 
-# setup addition of keys when needed
 if ps -p $SSH_AGENT_PID > /dev/null; then	  # if ssh-agent is running
   if [ -z "$SSH_TTY" ] ; then                     # if not using ssh
 #    ssh-add -l > /dev/null                        # check for keys
@@ -36,18 +30,6 @@ antigen apply
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -57,7 +39,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
+ zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -73,7 +55,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -102,7 +84,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(chucknorris emotty )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -150,4 +132,21 @@ fi
 unset __conda_setup
 
 # <<< conda initialize <<<
+
+source /home/lukas/miniconda3/bin/activate tf
+
+eval $(thefuck --alias)
+
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias fzfb="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+
+export FZF_DEFAULT_COMMAND="fdfind ."
+export FZF_CTRL_T_COMMAND="fdfind ."
+export FZF_ALT_C_COMMAND="fdfind ."
+
+export FZF_CTRL_T_OPTS="--ansi --preview-window 'hidden' --preview 'bat --color=always --style=header,grid --line-range :300 {}' --bind 'ctrl-/:change-preview-window(right:60%|down|)'"
+
+source ~/.fzf-tab-completion/zsh/fzf-zsh-completion.sh
 

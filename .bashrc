@@ -128,3 +128,5 @@ fi
 
 export I3=~/.config/i3/config
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

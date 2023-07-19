@@ -18,12 +18,12 @@
   {
     "key": "shift+k",
     "command": "editor.action.moveLinesUpAction",
-    "when": "editorTextFocus && !editorReadOnly"
+    "when": "editorTextFocus && !editorReadOnly && vim.mode != 'Insert'"
   },
   {
     "key": "shift+j",
     "command": "editor.action.moveLinesDownAction",
-    "when": "editorTextFocus && !editorReadOnly"
+    "when": "editorTextFocus && !editorReadOnly && vim.mode != 'Insert'"
   },
   {
     "key": "shift+ctrl+tab",
