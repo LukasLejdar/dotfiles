@@ -142,11 +142,56 @@ eval $(thefuck --alias)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias fzfb="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
-export FZF_DEFAULT_COMMAND="fdfind ."
-export FZF_CTRL_T_COMMAND="fdfind ."
-export FZF_ALT_C_COMMAND="fdfind ."
+export FZF_DEFAULT_COMMAND="fdfind -H"
+export FZF_CTRL_T_COMMAND="fdfind -H"
+export FZF_ALT_C_COMMAND="fdfind -t d -H"
 
-export FZF_CTRL_T_OPTS="--ansi --preview-window 'hidden' --preview 'bat --color=always --style=header,grid --line-range :300 {}' --bind 'ctrl-/:change-preview-window(right:60%|down|)'"
+export FZF_CTRL_T_OPTS="--ansi --preview-window 'hidden' --preview 'bat --color=always --style=header,grid --line-range :300 {}' --bind 'ctrl-space:change-preview-window(up|right:60%|)'"
 
 source ~/.fzf-tab-completion/zsh/fzf-zsh-completion.sh
+
+
+zle -N cd_with_fzf
+bindkey ^f cd_with_fzf
+
+zle -N search_home_with_fzf
+bindkey ^b search_home_with_fzf
+
+zle -N open_with_fzf
+bindkey ^o open_with_fzf
+
+zle -N nvim_with_fzf
+bindkey ^v nvim_with_fzf
+
+cd_with_fzf() {
+    cd $HOME
+    local selected_file=$(fdfind -t d -H | eval fzf $FZF_CTRL_T_OPTS) 
+    if [ -n "$selected_file" ]; then
+        BUFFER="cd $selected_file"
+        zle accept-line
+    fi
+    zle reset-prompt
+}
+
+search_home_with_fzf() {
+    local selected_file=$(fdfind . $HOME/ -H | eval fzf $FZF_CTRL_T_OPTS) 
+    if [ -n "$selected_file" ]; then
+        LBUFFER+=${selected_file}    
+    fi
+    zle reset-prompt
+}
+
+open_with_fzf() {
+    fdfind -t f -H -I | fzf -m --preview="xdg-mime query filetype {} | xargs -I {} xdg-mime query default {}" --preview-window 'down:5%' --bind 'ctrl-space:change-preview-window(hidden|)' | xargs -ro -d "\n" xdg-open 2>&-
+}
+
+#$HOME/bin/nvim_with_fzf
+nvim_with_fzf() {
+    local selected_file=$(fdfind -H | eval fzf $FZF_CTRL_T_OPTS) 
+    if [ -n "$selected_file" ]; then
+        BUFFER="nvim $selected_file"
+        zle accept-line
+    fi
+    zle reset-prompt
+}
 

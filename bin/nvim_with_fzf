@@ -1,3 +1,0 @@
-#!/bin/bash
-eval nvim "$(fdfind -H | eval fzf $FZF_CTRL_T_OPTS)" 
-
