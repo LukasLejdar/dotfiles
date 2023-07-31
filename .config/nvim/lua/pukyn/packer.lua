@@ -20,6 +20,7 @@ return require('packer').startup(function(use)
     use ('lervag/vimtex')
     use ('SirVer/ultisnips')
     use ('KeitaNakamura/tex-conceal.vim')
+    use ('xiyaowong/transparent.nvim')
 
     use({ 'rose-pine/neovim', as = 'rose-pine' })
     vim.cmd('colorscheme rose-pine')

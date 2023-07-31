@@ -144,6 +144,11 @@ _G.packer_plugins = {
     path = "/home/lukas/.local/share/nvim/site/pack/packer/start/tex-conceal.vim",
     url = "https://github.com/KeitaNakamura/tex-conceal.vim"
   },
+  ["transparent.nvim"] = {
+    loaded = true,
+    path = "/home/lukas/.local/share/nvim/site/pack/packer/start/transparent.nvim",
+    url = "https://github.com/xiyaowong/transparent.nvim"
+  },
   ultisnips = {
     loaded = true,
     path = "/home/lukas/.local/share/nvim/site/pack/packer/start/ultisnips",
