@@ -1,7 +1,10 @@
 ZSH_THEME="powerlevel10k/powerlevel10k"
+autoload -U colors && colors	# Load colors
+setopt autocd
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+PATH="$PATH:$HOME/.cargo/bin"
 export TEXMFHOME=~/texmf
 zstyle ':omz:update' mode auto      # update automatically without asking
 
@@ -31,6 +34,8 @@ export FZF_ALT_C_COMMAND="fdfind . $HOME -t d -H"
 
 export FZF_CTRL_T_OPTS="--ansi --preview-window 'hidden' --preview 'bat --color=always --style=header,grid --line-range :300 {}' --bind 'ctrl-space:change-preview-window(up|right:60%|)'"
 
+export CTRL_U_DIR="/"
+
 # ------------------ SHORTCUTS ------------------
 zle -N cd_with_fzf
 bindkey ^f cd_with_fzf
@@ -44,8 +49,15 @@ bindkey ^o open_with_fzf
 zle -N nvim_with_fzf
 bindkey ^v nvim_with_fzf
 
+zle -N nvim_dir_with_fzf
+bindkey '^[v' nvim_dir_with_fzf
+
 zle -N cd_home
 bindkey ^h cd_home
+
+zle -N cd_ctrl_u
+bindkey ^u cd_ctrl_u
+
 # ------------------ FUNCTIONS ------------------
 cd_with_fzf() {
     local selected_file=$(fdfind -t d -H | eval fzf $FZF_CTRL_T_OPTS) 
@@ -77,10 +89,35 @@ nvim_with_fzf() {
     zle reset-prompt
 }
 
+nvim_dir_with_fzf() {
+    local selected_file=$(fdfind -H -t d | eval fzf $FZF_CTRL_T_OPTS) 
+    if [ -n "$selected_file" ]; then
+        BUFFER="nvim $selected_file"
+        zle accept-line
+    fi
+    zle reset-prompt
+}
+
 cd_home() {
+  overwrite_ctrl_u_dir $(pwd)
   cd $HOME
   zle accept-line
 }
+
+cd_ctrl_u() {
+  cd $CTRL_U_DIR
+  zle accept-line
+}
+
+#echo_ctrl_u() {
+#  printf "\n$CTRL_U_DIR"
+#}
+
+overwrite_ctrl_u_dir() {
+  if ! [[ $1 -ef $HOME ]]; then
+    export CTRL_U_DIR=$(pwd)
+  fi
+} 
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -97,3 +134,9 @@ fi
 unset __conda_setup
 
 # <<< conda initialize <<<
+
+PATH="/home/lukas/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/lukas/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/lukas/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/lukas/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/lukas/perl5"; export PERL_MM_OPT;
