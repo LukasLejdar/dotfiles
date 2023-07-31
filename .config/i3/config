@@ -1,25 +1,31 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
-#
 
 # Startup programs
 exec_always --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
-
-#exec_always --no-startup-id xrandr --output DP1-2-1 --auto --right-of eDP1
-#exec_always --no-startup-id xrandr --output DP1-2-2 --auto --right-of DP1-2-1
 
 exec_always --no-startup-id dunst 
 exec_always compton &;
 exec_always --no-startup-id clipit &; 512g
 exec_always --no-startup-id nm-applet
-exec_always --no-startup-id i3-msg 'exec "setxkbmap -option 'grp:ctrl_alt_toggle' -layout us,cz -variant ,qwerty";'
+exec_always --no-startup-id i3-msg 'exec "setxkbmap -option 'grp:alt_caps_toggle' -layout us,cz -variant ,qwerty";'
 exec_always feh --bg-scale ~/Pictures/Wallpapers/125254fc708bd9a722b4ef21ddf1ee88.jpg
-exec --no-startup-id i3-msg 'exec google-chrome'
+
+exec --no-startup-id google-chrome
+exec_always --no-startup-id picom &
+exec_always --no-startup-id glimmer --styles=/home/lukas/.config/glimmer/theme.css 
 
 #Mods
 set $mod Mod4
 set $mod1 Mod1
 
 font pango:MesloLGS NF 11
+smart_borders on
+smart_gaps on
+
+gaps inner 10
+gaps outer 10
+
+default_border pixel 0
 
 # external monitors
 bindsym $mod+Ctrl+1 exec xrandr --output HDMI1 --auto --right-of eDP1
@@ -51,12 +57,6 @@ bindsym $mod+q kill
 bindsym $mod+Shift+d exec dmenu_run
 
 # change focus
-#bindsym $mod+Left focus left
-#bindsym $mod+Down focus down
-#bindsym $mod+Up focus up
-#bindsym $mod+Right focus right
-
-# change focus
 bindsym $mod+a focus left
 bindsym $mod+s focus down
 bindsym $mod+w focus up
@@ -81,6 +81,10 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+s layout stacking
 bindsym $mod+Shift+t layout tabbed
 bindsym $mod+Shift+e layout toggle split
+bindsym $mod+t			split toggle
+
+bindsym $mod+Shift+g		gaps inner current set 15; gaps outer current set 15
+bindsym $mod+Shift+h		gaps inner current set 0; gaps outer current set 0
 
 # # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -141,25 +145,10 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 
 # resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
-
-mode "resize" {
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
+bindsym $mod+Shift+y exec --no-startup-id i3resize left
+bindsym $mod+Shift+u exec --no-startup-id i3resize down
+bindsym $mod+Shift+i exec --no-startup-id i3resize up
+bindsym $mod+Shift+o exec --no-startup-id i3resize right
 
 # PulseAudio key bindings (need USE flag "pulseaudio", will pull in media-sound/pulseaudio automatically.)
 bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ unmute
@@ -200,7 +189,6 @@ bindsym Ctrl+Shift+XF86MonBrightnessDown exec "brightness -i -0.1 -D 1,2"
 
 
 # redshift modes
-bindsym $mod+l exec brightness 
 
 bar {
     font pango:MesloLGS NF 11
