@@ -52,5 +52,9 @@
     "key": "ctrl+w",
     "command": "-workbench.action.closeGroup",
     "when": "activeEditorGroupEmpty && multipleEditorGroups"
+  },
+  {
+    "key": "alt+v",
+    "command": "toggleVim"
   }
 ]
