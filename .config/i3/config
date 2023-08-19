@@ -1,31 +1,39 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 # Startup programs
+# exec_always --no-startup-id pkill glimmer
 exec_always --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
 
 exec_always --no-startup-id dunst 
-exec_always compton &;
 exec_always --no-startup-id clipit &; 512g
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id i3-msg 'exec "setxkbmap -option 'grp:alt_caps_toggle' -layout us,cz -variant ,qwerty";'
 exec_always feh --bg-scale ~/Pictures/Wallpapers/125254fc708bd9a722b4ef21ddf1ee88.jpg
 
 exec --no-startup-id google-chrome
-exec_always --no-startup-id picom &
-exec_always --no-startup-id glimmer --styles=/home/lukas/.config/glimmer/theme.css 
+exec_always --no-startup-id picom --config ~/.config/picomp/picom.conf
+# exec_always --no-startup-id glimmer --styles=/home/lukas/.config/glimmer/theme.css 
 
 #Mods
 set $mod Mod4
 set $mod1 Mod1
 
 font pango:MesloLGS NF 11
-smart_borders on
+for_window [class="^.*"] border pixel 2
+
+for_window [class="Com.cisco.secureclient.gui"] move container to workspace $ws10, floating enable, resize set 810 520, move position center
+for_window [class="Org.gnome.Nautilus"] border pixel 0
+for_window [class="Gedit"] border pixel 0
+for_window [class="Pavucontrol"] border pixel 0
+for_window [class="Gnome-control-center"] border pixel 0
+#for_window [class="Alacritty"] border pixel 2
+#for_window [class="Google-chrome"] border pixel 2
+
 smart_gaps on
+hide_edge_borders smart
 
 gaps inner 10
 gaps outer 10
-
-default_border pixel 0
 
 # external monitors
 bindsym $mod+Ctrl+1 exec xrandr --output HDMI1 --auto --right-of eDP1
@@ -81,10 +89,10 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+s layout stacking
 bindsym $mod+Shift+t layout tabbed
 bindsym $mod+Shift+e layout toggle split
-bindsym $mod+t			split toggle
+bindsym $mod+t split toggle
 
-bindsym $mod+Shift+g		gaps inner current set 15; gaps outer current set 15
-bindsym $mod+Shift+h		gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Shift+g gaps inner current set 15; gaps outer current set 15
+bindsym $mod+Shift+h gaps inner current set 0; gaps outer current set 0
 
 # # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -155,12 +163,18 @@ bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- unmute
 bindsym XF86AudioMute exec amixer -D pulse sset Master toggle
 
+#bindsym $mod+F1 exec pacmd set-default-sink 3
+#bindsym $mod+XF86AudioRaiseVolume exec pacmd set-default-sink 3
+#
+#bindsym $mod+F2 exec pacmd set-default-sink 4
+#bindsym $mod+XF86AudioLowerVolume exec pacmd set-default-sink 4
 
 # Media player key bindings (need media-sound/playerctl for playerctl.)
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
 
 bindsym XF86Display exec brightness -r
 
@@ -187,8 +201,16 @@ bindsym Ctrl+Shift+F5 exec "brightness -i -0.1 -D 1,2"
 bindsym Ctrl+Shift+XF86MonBrightnessUp exec "brightness -i 0.1 -D 1,2"
 bindsym Ctrl+Shift+XF86MonBrightnessDown exec "brightness -i -0.1 -D 1,2"
 
+set $transparent #00000000
 
-# redshift modes
+# class                 border  backgr. text    indicator child_border
+client.focused          #4c7899 #285577 #ffffff #2e9ef4   #a1c5d4
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   $transparent
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff00
 
 bar {
     font pango:MesloLGS NF 11
