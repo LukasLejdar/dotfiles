@@ -69,7 +69,8 @@
   ],
   "vim.handleKeys": {
     "<C-w>": false,
-    "<C-a>": false
+    "<C-a>": false,
+    "<C-.>": false
   },
 
   "git.autofetch": true,
